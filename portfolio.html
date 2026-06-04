@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amrita Ray</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════
+       SYSTEM TOKENS (Memphis / Bauhaus grotesque)
+    ═══════════════════════════════════════════════════════════════════ */
+    :root {
+      --cream: oklch(0.96 0.025 85);
+      --cream-2: oklch(0.93 0.030 85);
+      --ink: oklch(0.16 0.015 50);
+      --ink-soft: oklch(0.28 0.015 50);
+      --paper: oklch(0.99 0.015 85);
+
+      --c-coral: oklch(0.68 0.20 25);
+      --c-pink: oklch(0.74 0.19 5);
+      --c-mustard: oklch(0.83 0.16 85);
+      --c-blue: oklch(0.60 0.18 245);
+      --c-lime: oklch(0.82 0.18 145);
+      --c-lav: oklch(0.74 0.13 305);
+
+      --muted: oklch(0.50 0.015 60);
+      --line: var(--ink);
+
+      --serif: "Instrument Serif", "Cormorant Garamond", Georgia, serif;
+      --display: "Bricolage Grotesque", "Space Grotesk", -apple-system, sans-serif;
+      --hand: var(--display);
+      --sans: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+      --bw: 3px;
+      --bw-thick: 4px;
+      --r-soft: 8px;
+      --r-pill: 999px;
+      --shadow: 8px 8px 0 0 var(--ink);
+      --shadow-lg: 14px 14px 0 0 var(--ink);
+
+      --maxw: 1320px;
+      --gutter: clamp(20px, 4vw, 56px);
+
+      --tilt-mult: 0;        /* calm = no tilts (Bauhaus mode) */
+      --deco-opacity: 0.12;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+
+    /* ── Type primitives ── */
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--c-mustard);
+      border: var(--bw) solid var(--ink);
+      padding: 5px 12px 4px;
+      display: inline-block;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+    .h-display {
+      font-family: var(--display);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      font-size: clamp(64px, 12vw, 180px);
+    }
+
+    /* ── Buttons / arrow link ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: var(--c-coral);
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: var(--bw) solid var(--ink);
+      border-radius: var(--r-pill);
+      box-shadow: var(--shadow);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover { transform: translate(-2px, -2px); box-shadow: 12px 12px 0 0 var(--ink); }
+    .btn:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 0 var(--ink); }
+    .btn.yellow { background: var(--c-mustard); }
+
+    .arrow-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--c-mustard);
+      border: var(--bw) solid var(--ink);
+      border-radius: 999px;
+      padding: 12px 20px;
+      box-shadow: 6px 6px 0 0 var(--ink);
+      transition: transform 0.15s, box-shadow 0.15s, gap 0.15s;
+    }
+    .arrow-link:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0 0 var(--ink);
+      gap: 16px;
+    }
+    .arrow-link .arr { font-family: var(--display); font-weight: 800; }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       HERO — dark blackboard, portrait flush to the bottom edge
+    ═══════════════════════════════════════════════════════════════════ */
+    .hero {
+	position: relative;
+    background: oklch(0.18 0.012 50);
+    color: var(--cream);
+    min-height: 100vh;
+    overflow: hidden;
+    border-bottom: var(--bw) solid var(--ink);
+    isolation: isolate;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--cream) 1.4px, transparent 1.6px);
+      background-size: 28px 28px;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+    .hero-stage {
+ 	position: relative;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: clamp(40px, 6vw, 80px);
+    padding: 0 var(--gutter);
+    /* max-width: 1600px; */
+    /* margin: 0 auto; */
+    justify-content: center;
+    align-content: stretch;
+    }
+    .hero-portrait {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    /* max-width: 620px; */
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    justify-self: end;
+    order: 2;
+    padding-top: 40px;
+    height: 100vh;
+    }
+    .hero-portrait img {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      width: auto;
+      max-width: 100%;
+      display: block;
+      object-fit: contain;
+      object-position: bottom center;
+    }
+    .hero-text {
+ 	 position: relative;
+     display: flex;
+     flex-direction: column;
+     align-items: flex-start;
+     text-align: left;
+     z-index: 5;
+     pointer-events: none;
+     order: 1;
+     max-width: 640px;
+     padding-bottom: clamp(60px, 10vh, 120px);
+     height: 100vh;
+     justify-content: center;
+    }
+    .hero-text .h-display {
+      color: var(--cream);
+      font-size: 110px;
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+    margin-bottom: 10px;
+
+    }
+    .hero-text .h-display .row { display: block; }
+    .hero-text .h-display .row.two { color: var(--cream); }
+    .hero-text .name {
+    margin-top: 4px;
+    font-family: 'Bricolage Grotesque';
+    /* font-style: italic; */
+    font-weight: 400;
+    font-size: 90px;
+    letter-spacing: -0.02em;
+    color: var(--c-coral);
+    line-height: 1;
+    }
+
+    /* Tablet — keep two-column 100vh, scale text down so image + text fit */
+    @media (max-width: 1100px) {
+      .hero-text .h-display { font-size: clamp(48px, 8.5vw, 92px); }
+      .hero-text .name      { font-size: clamp(36px, 6.5vw, 72px); }
+      .hero-stage { gap: clamp(20px, 4vw, 60px); }
+    }
+    /* Mobile — STAY 100vh, stack vertically so both image and text fit within viewport */
+    @media (max-width: 860px) {
+      .hero-stage {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;     /* text takes its size, image fills the rest */
+        height: 100vh;                    /* keep 100vh on mobile too */
+        min-height: 100vh;
+        padding: 56px var(--gutter) 0;
+        gap: 16px;
+        align-items: stretch;
+      }
+      .hero-text {
+        order: 1;
+        height: auto;                     /* override desktop 100vh */
+        max-width: 100%;
+        padding-bottom: 0;
+        align-items: center;
+        text-align: center;
+        justify-content: flex-start;
+      }
+      .hero-text .h-display { font-size: clamp(34px, 8vw, 54px); line-height: 1; margin-bottom: 6px; }
+      .hero-text .name      { font-size: clamp(26px, 6.5vw, 42px); }
+      .hero-portrait {
+        order: 2;
+        height: 100%;                     /* override desktop 100vh — fill remaining grid row */
+        min-height: 0;
+        padding-top: 0;
+        overflow: hidden;
+      }
+      .hero-portrait img { height: 100%; max-height: 100%; }
+    }
+    /* Small phones — tighter spacing, smaller type */
+    @media (max-width: 480px) {
+      .hero-stage { padding: 44px var(--gutter) 0; gap: 12px; }
+      .hero-text .h-display { font-size: clamp(28px, 9vw, 40px); }
+      .hero-text .name      { font-size: clamp(22px, 7vw, 32px); }
+    }
+    /* Very short viewports (landscape phones) — squeeze type so nothing clips */
+    @media (max-height: 640px) and (max-width: 860px) {
+      .hero-text .h-display { font-size: clamp(24px, 7vw, 36px); }
+      .hero-text .name      { font-size: clamp(20px, 6vw, 28px); }
+      .hero-stage { padding-top: 32px; gap: 8px; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       TAGLINE STRIP
+    ═══════════════════════════════════════════════════════════════════ */
+    .tagline {
+    background: oklch(0.19 0.12 270.03);
+      color: var(--cream);
+      padding: 280px;
+      border-bottom: var(--bw) solid var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .tagline::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--cream) 1.4px, transparent 1.6px);
+      background-size: 26px 26px;
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .tagline-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 32px;
+      position: relative;
+      z-index: 2;
+    }
+    .tagline .statement {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(28px, 3.8vw, 52px);
+      line-height: 1.15;
+      letter-spacing: -0.022em;
+      color: var(--cream);
+      text-wrap: pretty;
+      text-align: center;
+      margin: 0;
+      max-width: 1080px;
+      align-self: center;
+    }
+    .tagline .statement b {
+      font-weight: 400;
+      font-family: var(--serif);
+      font-style: italic;
+      letter-spacing: -0.01em;
+    }
+    .tagline .statement b:nth-of-type(1) { color: var(--c-mustard); }
+    .tagline .statement b:nth-of-type(2) { color: var(--c-lime); }
+    .tagline .statement b:nth-of-type(3) { color: var(--c-pink); }
+    .tagline .statement .scribble {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.04em;
+      letter-spacing: -0.01em;
+    }
+    .tagline .statement .scribble:nth-of-type(1) { color: var(--c-lime); }
+    .tagline .statement .scribble:nth-of-type(2) { color: var(--c-pink); }
+    .tagline .statement .scribble:nth-of-type(3) { color: var(--c-mustard); }
+
+    /* Tablet — cap the 280px padding so it doesn't take over the whole viewport */
+    @media (max-width: 1100px) {
+      .tagline { padding: clamp(80px, 14vw, 180px) var(--gutter); }
+    }
+    /* Phones — drop padding sharply and tighten the statement type */
+    @media (max-width: 720px) {
+      .tagline { padding: 72px var(--gutter); }
+      .tagline-inner { gap: 20px; }
+      .tagline .statement { font-size: clamp(20px, 5.4vw, 30px); line-height: 1.25; max-width: 100%; }
+    }
+    /* Small phones */
+    @media (max-width: 420px) {
+      .tagline { padding: 56px var(--gutter); }
+      .tagline .statement { font-size: clamp(18px, 5.6vw, 22px); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════════════════════════════════ */
+    .about {
+      padding: clamp(80px, 12vw, 140px) var(--gutter);
+	background: oklch(0.83 0.16 84.98);   
+    position: relative;
+      overflow: hidden;
+    }
+    .about-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 36px;
+      position: relative;
+      z-index: 2;
+    }
+    .about-body { position: relative; z-index: 2; }
+    .about-body .quote-mark {
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--c-coral);
+      font-size: 140px;
+      line-height: 0.55;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .about-body p {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(22px, 2.6vw, 36px);
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin: 0 0 22px;
+    }
+    .about-body p em {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--c-coral);
+    }
+    .about-body p .hl {
+      background: var(--c-mustard);
+      padding: 2px 8px;
+      border: 2px solid var(--ink);
+      border-radius: 6px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      box-shadow: 3px 3px 0 0 var(--ink);
+    }
+    .about-body .funfact {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(34px, 4.8vw, 60px);
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      color: var(--c-coral);
+      margin-top: 40px;
+      display: block;
+    }
+    .about-body .funfact em {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       WORK PANELS
+    ═══════════════════════════════════════════════════════════════════ */
+    .panel {
+      border-top: var(--bw) solid var(--ink);
+      padding: clamp(70px, 9vw, 130px) var(--gutter);
+      position: relative;
+      overflow: hidden;
+    }
+    .panel.bg-cream { background: var(--cream); }
+    .panel.bg-lime  { background: var(--c-lime); }
+    .panel.bg-lav   { background: oklch(0.95 0 0); }
+    .panel.bg-mustard { background: var(--c-mustard); }
+    .panel.bg-coral { background: var(--c-coral); color: var(--cream); }
+    .panel.bg-cream2 { background: var(--cream-2); }
+
+    .panel.bg-lime::before,
+    .panel.bg-lav::before,
+    .panel.bg-mustard::before,
+    .panel.bg-coral::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--ink) 1.4px, transparent 1.6px);
+      background-size: 26px 26px;
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .panel.bg-coral::before { opacity: 0.20; }
+
+    .panel-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 90px);
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .panel.reverse .panel-inner { grid-template-areas: "text image"; }
+    .panel.reverse .panel-image { grid-area: image; }
+    .panel.reverse .panel-text { grid-area: text; }
+
+    .panel-image {
+      aspect-ratio: 4 / 5;
+      width: 100%;
+      position: relative;
+      transform: rotate(calc(-2deg * var(--tilt-mult, 1)));
+    }
+    .panel.reverse .panel-image { transform: rotate(calc(2deg * var(--tilt-mult, 1))); }
+    .panel-image .frame {
+      width: 100%; height: 100%;
+      border: var(--bw-thick) solid var(--ink);
+      box-shadow: 14px 14px 0 0 var(--ink);
+      overflow: hidden;
+      background: var(--c-mustard);
+      position: relative;
+    }
+    .panel-image .frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    .panel-text { position: relative; z-index: 2; }
+    .panel.bg-coral .panel-text { color: var(--cream); }
+
+    .panel-text .row-eyebrow {
+      display: inline-flex; align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--cream);
+      border: var(--bw) solid var(--ink);
+      padding: 6px 12px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+    .panel-text .row-eyebrow .num {
+      color: var(--c-coral);
+      font-weight: 700;
+      font-family: var(--display);
+    }
+
+    .panel-text .role {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(42px, 6vw, 80px);
+      line-height: 0.94;
+      letter-spacing: -0.025em;
+      margin: 0 0 14px;
+    }
+    .panel-text .role em {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--c-coral);
+      letter-spacing: -0.015em;
+    }
+    .panel.bg-coral .panel-text .role em { color: var(--c-mustard); }
+
+    .panel-text .org {
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: clamp(11px, 1vw, 13px);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin: 0 0 28px;
+      display: inline-block;
+      background: var(--c-mustard);
+      padding: 9px 16px 8px;
+      border: 2px solid var(--ink);
+      border-radius: 4px;
+      line-height: 1;
+    }
+    .panel.bg-coral .panel-text .org { background: var(--c-lime); }
+
+    .panel-text .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 0 0 28px;
+      padding: 0;
+    }
+    .panel-text .meta-grid > div {
+      background: var(--cream);
+      border: var(--bw) solid var(--ink);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+    .panel.bg-cream .panel-text .meta-grid > div,
+    .panel.bg-cream2 .panel-text .meta-grid > div { background: var(--paper); }
+    .panel.bg-mustard .panel-text .meta-grid > div { background: var(--cream); }
+    .panel-text .meta-grid dt {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-coral);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    .panel-text .meta-grid dd {
+      margin: 0;
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .panel-text .body p {
+      font-size: 16.5px;
+      line-height: 1.6;
+      color: var(--ink);
+      margin: 0;
+    }
+    .panel.bg-coral .panel-text .body p { color: var(--cream); }
+    .panel-text .cta { margin-top: 32px; }
+
+    /* ── Duo panel (Print Model + Dancer) ── */
+    .panel.duo { padding: clamp(70px, 9vw, 130px) var(--gutter); }
+    .panel.duo .duo-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 80px);
+      align-items: start;
+      position: relative;
+      z-index: 2;
+    }
+    .duo-card {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      position: relative;
+    }
+    .duo-image {
+      aspect-ratio: 3 / 4;
+      width: 100%;
+      position: relative;
+      transform: rotate(calc(-2deg * var(--tilt-mult, 1)));
+    height: -webkit-fill-available;
+    }
+    .duo-card:nth-child(2) .duo-image {
+      transform: rotate(calc(2deg * var(--tilt-mult, 1)));
+    }
+    .duo-image .frame {
+      width: 100%; height: 100%;
+      border: var(--bw-thick) solid var(--ink);
+      box-shadow: 14px 14px 0 0 var(--ink);
+      overflow: hidden;
+      background: var(--c-pink);
+      position: relative;
+    }
+    .duo-card:nth-child(2) .duo-image .frame { background: var(--c-coral); }
+    .duo-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+    .duo-text { padding: 0 6px; }
+    .duo-text .role-only {
+      font-family: var(--display); font-weight: 800;
+      font-size: clamp(56px, 7vw, 100px);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      margin: 0;
+      color: var(--ink);
+    }
+    .duo-text .role-only em {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      color: var(--c-coral);
+    }
+
+    @media (max-width: 860px) {
+      .panel-inner { grid-template-columns: 1fr !important; gap: 50px !important; }
+      .panel.reverse .panel-inner { grid-template-areas: "image" "text"; }
+      .panel-image { transform: rotate(calc(-1deg * var(--tilt-mult, 1))); }
+      .panel.reverse .panel-image { transform: rotate(calc(1deg * var(--tilt-mult, 1))); }
+    }
+    @media (max-width: 820px) {
+      .panel.duo .duo-inner { grid-template-columns: 1fr; gap: 64px; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       SKILLS
+    ═══════════════════════════════════════════════════════════════════ */
+    .skills {
+      border-top: var(--bw) solid var(--ink);
+      padding: clamp(80px, 11vw, 140px) var(--gutter);
+      background: var(--c-mustard);
+      position: relative;
+      overflow: hidden;
+    }
+    .skills::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--ink) 1.6px, transparent 1.8px);
+      background-size: 28px 28px;
+      opacity: 0.14;
+    }
+    .skills-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "eb eb"
+        "c1 c2";
+      gap: 36px clamp(40px, 6vw, 80px);
+      position: relative;
+      z-index: 2;
+    }
+    .skills-inner > .eyebrow { grid-area: eb; justify-self: start; background: var(--c-blue); color: var(--cream); }
+    .skills-col h3 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(34px, 4.4vw, 56px);
+      line-height: 0.95;
+      letter-spacing: -0.022em;
+      margin: 0 0 28px;
+    }
+    .skills-col h3 em {
+      font-family: var(--display);
+      font-style: normal;
+      font-weight: 800;
+      color: var(--c-coral);
+    }
+    .pills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px 9px;
+      border: var(--bw) solid var(--ink);
+      color: var(--ink);
+      border-radius: 999px;
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 14px;
+      background: var(--cream);
+      box-shadow: 4px 4px 0 0 var(--ink);
+      transition: box-shadow 0.15s ease;
+      will-change: transform;
+    }
+    .pill:hover { box-shadow: 6px 6px 0 0 var(--ink); }
+    .pill .dot {
+      width: 8px; height: 8px; border-radius: 999px;
+      background: var(--c-coral); border: 1.5px solid var(--ink);
+    }
+    .pill img.logo {
+      width: 18px; height: 18px;
+      object-fit: contain;
+      display: block;
+      flex-shrink: 0;
+    }
+    .pill:nth-child(2n) { background: var(--c-lime); }
+    .pill:nth-child(3n) { background: var(--c-pink); }
+    .pill:nth-child(4n) { background: var(--c-lav); }
+    .pill:nth-child(5n) { background: var(--c-blue); color: var(--cream); }
+    .pill:nth-child(5n) .dot { background: var(--c-mustard); }
+
+    /* ── Floating-pill stage (animation container) ── */
+    .float-stage {
+      position: relative;
+      width: 100%;
+      height: clamp(380px, 48vh, 480px);
+      border-radius: 22px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.06), transparent 60%),
+        radial-gradient(ellipse at 70% 80%, rgba(0,0,0,0.05), transparent 60%),
+        oklch(0.20 0.018 60);
+      border: var(--bw) solid var(--ink);
+      box-shadow: var(--shadow);
+    }
+    /* Subtle grid pattern over the stage */
+    .float-stage::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    /* Ghost text backdrop (e.g. "SKILLS" / "TOOLS") */
+    .float-stage .ghost {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+      z-index: 1;
+      width: 100%;
+      padding: 0 24px;
+    }
+    .float-stage .ghost .gh-title {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(48px, 7vw, 92px);
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: rgba(255,255,255,0.06);
+      display: block;
+    }
+    .float-stage .ghost .gh-sub {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.10);
+      margin-top: 8px;
+      display: block;
+    }
+    /* Pulsing badge bottom-right of each stage */
+    .float-stage .badge {
+      position: absolute;
+      bottom: 14px; right: 16px;
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(6px);
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .float-stage .badge::before {
+      content: "";
+      width: 6px; height: 6px; border-radius: 999px;
+      background: var(--c-coral);
+      animation: floatPulse 2s ease-in-out infinite;
+    }
+    @keyframes floatPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.6); }
+    }
+    /* When inside a float-stage, pills become absolute and bounce */
+    .float-stage .pills {
+      position: absolute;
+      inset: 0;
+      display: block;
+      z-index: 2;
+    }
+    .float-stage .pill {
+      position: absolute;
+      top: 0; left: 0;
+      cursor: default;
+      user-select: none;
+      transform: translate(0, 0);
+      transition: box-shadow 0.2s ease;
+    }
+    .float-stage .pill:hover {
+      box-shadow: 8px 8px 0 0 var(--ink);
+      z-index: 10;
+    }
+
+    @media (max-width: 860px) {
+      .skills-inner {
+        grid-template-columns: 1fr;
+        grid-template-areas: "eb" "c1" "c2";
+      }
+      .float-stage { height: 360px; }
+      .float-stage .ghost .gh-title { font-size: 56px; }
+    }
+    @media (max-width: 480px) {
+      .float-stage { height: 320px; }
+      .float-stage .ghost .gh-title { font-size: 44px; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════════════════════════════════ */
+    .contact {
+      background: var(--ink);
+      color: var(--cream);
+      padding: clamp(100px, 14vw, 180px) var(--gutter) clamp(60px, 8vw, 100px);
+      border-top: var(--bw) solid var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--cream) 1.4px, transparent 1.6px);
+      background-size: 30px 30px;
+      opacity: 0.10;
+    }
+    .contact-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 36px;
+      position: relative;
+      z-index: 2;
+    }
+    .contact .eyebrow { background: var(--c-coral); color: var(--ink); }
+    .contact h2 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(56px, 9vw, 140px);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      margin: 0 0 32px;
+      color: var(--cream);
+    }
+    .contact h2 em {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--c-coral);
+      letter-spacing: -0.015em;
+    }
+    .contact h2 .underline {
+      background-image: linear-gradient(to top, var(--c-mustard) 0, var(--c-mustard) 12%, transparent 12.1%);
+      padding: 0 4px;
+    }
+    .contact .body p {
+      color: oklch(0.82 0.01 70);
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(18px, 1.8vw, 22px);
+      max-width: 720px;
+      line-height: 1.5;
+    }
+
+    .contact-channels {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .channel {
+      background: var(--cream);
+      color: var(--ink);
+      border: var(--bw) solid var(--cream);
+      border-radius: 14px;
+      padding: 20px 22px;
+      box-shadow: 8px 8px 0 0 var(--c-coral);
+    }
+    .channel:nth-child(2) { box-shadow: 8px 8px 0 0 var(--c-mustard); }
+    .channel:nth-child(3) { box-shadow: 8px 8px 0 0 var(--c-blue); }
+    .channel .label {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-coral);
+      margin-bottom: 10px;
+    }
+    .channel a {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(20px, 2vw, 26px);
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 2px solid var(--ink);
+      display: inline-block;
+      line-height: 1.1;
+    }
+    .channel a.small {
+      font-size: 15px;
+      word-break: break-all;
+      border-bottom: 1.5px solid var(--ink);
+    }
+
+    .contact-cta { margin-top: 56px; display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .contact-foot {
+      max-width: var(--maxw);
+      margin: 80px auto 0;
+      padding-top: 24px;
+      border-top: 2px dashed oklch(0.40 0.01 50);
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      color: oklch(0.65 0.005 70);
+      position: relative;
+      z-index: 2;
+    }
+    .contact-foot .star { color: var(--c-coral); }
+
+    @media (max-width: 860px) {
+      .contact-inner { grid-template-columns: 1fr; }
+      .contact-channels { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <div class="hero-stage">
+      <div class="hero-portrait">
+        <img src="photos/shiwi_hero_cropped.png" alt="Amrita Ray" />
+      </div>
+      <div class="hero-text">
+        <h1 class="h-display">
+          <span class="row">I express</span>
+          <span class="row two">with purpose</span>
+        </h1>
+        <div class="name">Amrita Ray</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ TAGLINE STRIP ═══ -->
+  <section class="tagline">
+    <div class="tagline-inner">
+      <p class="statement">
+        Communication &amp; Development Professional &mdash;
+        translating <b>grassroots stories</b> into <span class="scribble">visual narratives,</span>
+        <b>media presence</b> into <span class="scribble">strategic messaging,</span>
+        &amp; <b>communities</b> into <span class="scribble">connected audience.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ═══ -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <span class="eyebrow" style="background:var(--c-coral); color:var(--cream); align-self:start;">03 — About</span>
+      <div class="about-body">
+        <p>
+          I would describe myself as someone who <span class="hl">loves to express</span> whether performing on stage, designing posters, or communicating with people. For me, everything revolves around <span class="hl">emotions</span>
+        </p>
+        <p>
+          I adapt to my environment, bringing out different sides of myself as needed. I enjoy reading, writing, dancing, singing, and most of all <span class="hl">thinking.</span> I am kind yet a little crazy, soft yet outspoken, and the more deeply I feel, the more I create.
+        </p>
+        <div class="funfact">Fun fact. I laugh a lot <em>when I'm stressed.</em></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PANEL 1 — OLF ═══ -->
+  <section class="panel bg-cream" id="panel-olf">
+    <div class="panel-inner">
+      <div class="panel-image">
+        <div class="frame">
+          <img src="photos/shiwi_olf.png" alt="Open Links Foundation — Amrita at work" loading="lazy" />
+        </div>
+      </div>
+      <div class="panel-text">
+        <div class="row-eyebrow"><span class="num">Chapter 01</span> · Development &amp; Design</div>
+        <h3 class="role">Communication<br/><em>& Content Associate.</em></h3>
+        <p class="org">Open Links Foundation</p>
+        <dl class="meta-grid">
+          <div><dt>Location</dt><dd>Pune, Maharashtra</dd></div>
+          <div><dt>Duration</dt><dd>Mar 2026 — Present</dd></div>
+          <div><dt>Domain</dt><dd>Education / Life Skills</dd></div>
+          <div><dt>Output</dt><dd>Posters · Video · Workshops</dd></div>
+        </dl>
+        <div class="body">
+          <p>
+Planned and executed educator-focused programs and events, creating meaningful learning and networking experiences for teachers and stakeholders. Developed content strategies and communication materials, including digital and print assets, to enhance program visibility and engagement. Designed interactive activities and participation strategies to foster deeper involvement across programs. Curated gifts and recognition materials for teacher development initiatives, ensuring they aligned with the purpose and values of each program. Collaborated with internal teams to effectively communicate program stories, outcomes, and impact while contributing creative ideas that strengthened participant engagement and enriched overall program experiences.
+          </p>
+        </div>
+        <div class="cta">
+          <a href="olf.html" class="arrow-link">View work in detail <span class="arr">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PANEL 2 — GANDHI ═══ -->
+  <section class="panel reverse bg-lime" id="panel-gandhi">
+    <div class="panel-inner">
+      <div class="panel-image">
+        <div class="frame">
+          <img src="Work/Gandhi%20Fellowship/pictures/IMG_2003.JPG" alt="Gandhi Fellowship — field photograph" loading="lazy" />
+        </div>
+      </div>
+      <div class="panel-text">
+        <div class="row-eyebrow"><span class="num">Chapter 02</span> · Community &amp; Education</div>
+        <h3 class="role">Gandhi<br /><em>Fellow.</em></h3>
+        <p class="org">Piramal Foundation</p>
+        <dl class="meta-grid">
+          <div><dt>Location</dt><dd>Himachal Pradesh, India</dd></div>
+          <div><dt>Duration</dt><dd>Jul 2024 — Aug 2025</dd></div>
+          <div><dt>Schools</dt><dd>10 government schools</dd></div>
+          <div><dt>Youth mentored</dt><dd>300+</dd></div>
+        </dl>
+        <div class="body">
+          <p>
+            Implemented Bal Buniyadi Shiksha Abhiyan across 10 government schools, supporting FLN goals under NEP 2020. Coordinated with District Magistrate, DIET officials, and school principals on district education priorities. Facilitated 20+ Gram Sabhas and Ward Sabhas under the ABC Big Bet initiative with NITI Aayog and Ministry of Panchayati Raj. Mentored 300+ youth on life skills, leadership, and social-emotional learning (SEL).
+          </p>
+        </div>
+        <div class="cta">
+          <a href="gandhi.html" class="arrow-link">View work in detail <span class="arr">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PANEL 3 — ON CAMERA ═══ -->
+  <section class="panel bg-lav" id="panel-on-camera">
+    <div class="panel-inner">
+      <div class="panel-image">
+        <div class="frame">
+          <img src="photos/shiwi_anchor.jpg" alt="Amrita Ray — On Camera" loading="lazy" />
+        </div>
+      </div>
+      <div class="panel-text">
+        <div class="row-eyebrow"><span class="num">Chapter 03</span> · Modelling · Acting · Anchoring</div>
+        <h3 class="role">On <em>Camera.</em></h3>
+        <p class="org">Music Video · TV · Editorial</p>
+        <dl class="meta-grid">
+          <div><dt>Location</dt><dd>West Bengal, India</dd></div>
+          <div><dt>Active</dt><dd>2021 — Present</dd></div>
+          <div><dt>Medium</dt><dd>Music Video · TV · Road Show</dd></div>
+          <div><dt>Language</dt><dd>Bengali · Hindi · English</dd></div>
+        </dl>
+        <div class="body">
+          <p>
+            A collection of polaroids, editorial shoots, and on-camera work across music videos, anchoring, and road shows.
+Capturing moments of creativity, confidence, and authentic expression.
+          </p>
+        </div>
+        <div class="cta">
+          <a href="on-camera.html" class="arrow-link">View work in detail <span class="arr">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ SKILLS ═══ -->
+  <section class="skills" id="skills">
+    <div class="skills-inner">
+      <span class="eyebrow">Toolkit</span>
+
+      <div class="skills-col">
+        <h3>What <em>I know</em></h3>
+        <div class="float-stage" data-float>
+
+          <div class="pills">
+            <span class="pill"><span class="dot"></span>Content Creation</span>
+            <span class="pill"><span class="dot"></span>Storytelling</span>
+            <span class="pill"><span class="dot"></span>Script Writing</span>
+            <span class="pill"><span class="dot"></span>Video Editing</span>
+            <span class="pill"><span class="dot"></span>Graphic Design</span>
+            <span class="pill"><span class="dot"></span>Event Planning</span>
+            <span class="pill"><span class="dot"></span>Facilitation</span>
+            <span class="pill"><span class="dot"></span>Digital Marketing</span>
+            <span class="pill"><span class="dot"></span>Social Media Management</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-col">
+        <h3>Tools <em>I use</em></h3>
+        <div class="float-stage" data-float>
+          <div class="pills">
+            <span class="pill"><img class="logo" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/openai.svg" alt="" loading="lazy" />ChatGPT &amp; Claude</span>
+            <span class="pill"><img class="logo" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/elevenlabs.svg" alt="" loading="lazy" />ElevenLabs</span>
+            <span class="pill"><img class="logo" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoft.svg" alt="" loading="lazy" />MS Suite</span>
+            <span class="pill"><img class="logo" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/google.svg" alt="" loading="lazy" />Google Workspace</span>
+            <span class="pill"><img class="logo" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/canva.svg" alt="" loading="lazy" />Canva</span>
+            <span class="pill"><img class="logo" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/adobephotoshop.svg" alt="" loading="lazy" />Adobe Photoshop</span>
+            <span class="pill"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/CapCut_logo.svg" alt="" loading="lazy" />CapCut</span>
+            <span class="pill"><span class="dot"></span>VN Video Editor</span>
+            <span class="pill"><span class="dot"></span>InShot</span>
+            <span class="pill"><img class="logo" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/wondersharefilmora.svg" alt="" loading="lazy" />Filmora</span>
+            <span class="pill"><img class="logo" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/figma.svg" alt="" loading="lazy" />Figma</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <span class="eyebrow">Contact</span>
+      <div>
+        <h2>Let's build<br /><em>something <span class="underline">great.</span></em></h2>
+        <div class="body">
+          <p>
+            I'm open to communication roles in corporate, NGO, media, and agency environments. If you're looking for someone who combines strategic thinking with creative execution — let's talk.
+          </p>
+        </div>
+
+        <div class="contact-channels">
+          <div class="channel">
+            <div class="label">✉ Email</div>
+            <a href="mailto:royshiwi@gmail.com">royshiwi@gmail.com</a>
+          </div>
+          <div class="channel">
+            <div class="label">☏ Phone</div>
+            <a href="tel:+919679770865">+91 96797 70865</a>
+          </div>
+
+        </div>
+
+        <div class="contact-cta">
+          <a href="#" class="btn">↓ Download Resume</a>
+          <a href="mailto:royshiwi@gmail.com" class="btn yellow">Write to me</a>
+        </div>
+      </div>
+    </div>
+
+
+  <!--     <div class="contact-foot">
+      <div><span class="star">★</span> © MMXXVI · Amrita Ray</div>
+      <div>Designed &amp; written with care.</div>
+      <div>Pune ↔ Calcutta <span class="star">★</span></div>
+    </div> —
+
+>
+
+  </section>
+
+  <!-- ═══ Floating-pill animation for the Skills section ═══ -->
+  <script>
+    (function floatingPills() {
+      const MARGIN = 14;
+      const SPEED = 0.45;
+      const stages = [];
+
+      // Fallback: if a logo fails to load, replace it with the original colored dot
+      document.querySelectorAll('.float-stage .pill img.logo').forEach((img) => {
+        img.addEventListener('error', () => {
+          const dot = document.createElement('span');
+          dot.className = 'dot';
+          img.replaceWith(dot);
+        }, { once: true });
+      });
+
+      function initStage(stage) {
+        const pills = Array.from(stage.querySelectorAll('.pill'));
+        if (!pills.length) return null;
+
+        const sw = stage.clientWidth;
+        const sh = stage.clientHeight;
+
+        const items = pills.map((el, i) => {
+          // Measure with current layout
+          const r = el.getBoundingClientRect();
+          const w = Math.max(60, r.width);
+          const h = Math.max(28, r.height);
+          // Seed evenly around centre on a ring + a little jitter
+          const angle = (i / pills.length) * Math.PI * 2 + Math.random() * 0.4;
+          const radius = Math.min(sw, sh) * 0.3 + Math.random() * 30;
+          let x = sw / 2 - w / 2 + Math.cos(angle) * radius;
+          let y = sh / 2 - h / 2 + Math.sin(angle) * radius;
+          x = Math.max(MARGIN, Math.min(sw - w - MARGIN, x));
+          y = Math.max(MARGIN, Math.min(sh - h - MARGIN, y));
+          let dx = (Math.random() - 0.5) * SPEED * 2;
+          let dy = (Math.random() - 0.5) * SPEED * 2;
+          if (Math.abs(dx) < 0.15) dx = dx < 0 ? -0.2 : 0.2;
+          if (Math.abs(dy) < 0.15) dy = dy < 0 ? -0.2 : 0.2;
+          el.style.transform = `translate(${x}px, ${y}px)`;
+          return { el, x, y, w, h, dx, dy };
+        });
+
+        return { stage, items, sw, sh };
+      }
+
+      function resolveCollision(a, b) {
+        const ax = a.x + a.w / 2;
+        const ay = a.y + a.h / 2;
+        const bx = b.x + b.w / 2;
+        const by = b.y + b.h / 2;
+        const dx = ax - bx;
+        const dy = ay - by;
+        const halfW = (a.w + b.w) / 2 + 6;
+        const halfH = (a.h + b.h) / 2 + 6;
+        if (Math.abs(dx) < halfW && Math.abs(dy) < halfH) {
+          // swap velocities (simple elastic)
+          [a.dx, b.dx] = [b.dx, a.dx];
+          [a.dy, b.dy] = [b.dy, a.dy];
+          // push apart along the dominant overlap axis
+          const pushX = (halfW - Math.abs(dx)) / 2 + 0.5;
+          const pushY = (halfH - Math.abs(dy)) / 2 + 0.5;
+          if (Math.abs(dx) / halfW > Math.abs(dy) / halfH) {
+            a.x += dx > 0 ? pushX : -pushX;
+            b.x += dx > 0 ? -pushX : pushX;
+          } else {
+            a.y += dy > 0 ? pushY : -pushY;
+            b.y += dy > 0 ? -pushY : pushY;
+          }
+        }
+      }
+
+      function tick(s) {
+        const { items, sw, sh } = s;
+        for (let i = 0; i < items.length; i++) {
+          const it = items[i];
+          it.x += it.dx;
+          it.y += it.dy;
+          // wall bounce
+          if (it.x <= MARGIN) { it.x = MARGIN; it.dx = Math.abs(it.dx); }
+          if (it.x + it.w >= sw - MARGIN) { it.x = sw - MARGIN - it.w; it.dx = -Math.abs(it.dx); }
+          if (it.y <= MARGIN) { it.y = MARGIN; it.dy = Math.abs(it.dy); }
+          if (it.y + it.h >= sh - MARGIN) { it.y = sh - MARGIN - it.h; it.dy = -Math.abs(it.dy); }
+          // pill-to-pill collisions
+          for (let j = i + 1; j < items.length; j++) resolveCollision(it, items[j]);
+          it.el.style.transform = `translate(${it.x}px, ${it.y}px)`;
+        }
+      }
+
+      let frameTimer = null;
+      function loopTick() {
+        for (const s of stages) if (s) tick(s);
+      }
+      function startLoop() {
+        if (frameTimer != null) return;
+        // setInterval at ~60fps. Reliable across environments where rAF may throttle.
+        frameTimer = setInterval(loopTick, 16);
+      }
+
+      function start() {
+        stages.length = 0;
+        document.querySelectorAll('.float-stage[data-float]').forEach((stage) => {
+          const s = initStage(stage);
+          if (s) stages.push(s);
+        });
+        if (stages.length) startLoop();
+      }
+
+      function startAndReinit() {
+        start();
+        // Re-measure after images (logos) load — they may shift pill widths a few px.
+        const reinit = () => start();
+        if (document.readyState === 'complete') setTimeout(reinit, 400);
+        else window.addEventListener('load', () => setTimeout(reinit, 200), { once: true });
+      }
+      // Inline script at end of body — invoke directly.
+      try { startAndReinit(); } catch (_) { setTimeout(startAndReinit, 50); }
+
+      // Re-init on resize (debounced)
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          stages.length = 0;
+          document.querySelectorAll('.float-stage[data-float]').forEach((stage) => {
+            const s = initStage(stage);
+            if (s) stages.push(s);
+          });
+        }, 200);
+      });
+    })();
+  </script>
+
+</body>
+</html>

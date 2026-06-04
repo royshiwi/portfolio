@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gandhi Fellowship — Amrita Ray</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════
+       SYSTEM TOKENS — shared across the portfolio
+    ═══════════════════════════════════════════════════════════════════ */
+    :root {
+      --cream: oklch(0.96 0.025 85);
+      --cream-2: oklch(0.93 0.030 85);
+      --ink: oklch(0.16 0.015 50);
+      --ink-soft: oklch(0.28 0.015 50);
+      --paper: oklch(0.99 0.015 85);
+
+      --c-coral: oklch(0.68 0.20 25);
+      --c-pink: oklch(0.74 0.19 5);
+      --c-mustard: oklch(0.83 0.16 85);
+      --c-blue: oklch(0.60 0.18 245);
+      --c-lime: oklch(0.82 0.18 145);
+      --c-lav: oklch(0.74 0.13 305);
+
+      --muted: oklch(0.50 0.015 60);
+
+      --serif: "Instrument Serif", "Cormorant Garamond", Georgia, serif;
+      --display: "Bricolage Grotesque", "Space Grotesk", -apple-system, sans-serif;
+      --sans: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+      --bw: 3px;
+      --bw-thick: 4px;
+      --r-soft: 8px;
+      --r-pill: 999px;
+      --shadow: 8px 8px 0 0 var(--ink);
+      --shadow-lg: 14px 14px 0 0 var(--ink);
+
+      --maxw: 1320px;
+      --gutter: clamp(20px, 4vw, 56px);
+
+      --tilt-mult: 0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+
+    /* ── eyebrow & buttons ── */
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--c-mustard);
+      border: var(--bw) solid var(--ink);
+      padding: 5px 12px 4px;
+      display: inline-block;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: var(--c-coral);
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: var(--bw) solid var(--ink);
+      border-radius: var(--r-pill);
+      box-shadow: var(--shadow);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover { transform: translate(-2px, -2px); box-shadow: 12px 12px 0 0 var(--ink); }
+    .btn:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 0 var(--ink); }
+
+    /* ── slot placeholder ── */
+    .slot {
+      position: relative;
+      background: var(--c-mustard);
+      color: var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.5;
+      padding: 20px;
+      overflow: hidden;
+      border: var(--bw) solid var(--ink);
+    }
+    .slot--ink { background: var(--ink); color: var(--cream); }
+    .slot--blue { background: var(--c-blue); color: var(--cream); }
+    .slot--lime { background: var(--c-lime); }
+    .slot--pink { background: var(--c-pink); }
+    .slot::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--ink) 1.4px, transparent 1.6px);
+      background-size: 22px 22px;
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .slot--ink::before, .slot--blue::before {
+      background-image: radial-gradient(circle, var(--cream) 1.4px, transparent 1.6px);
+      opacity: 0.18;
+    }
+    .slot .slot-inner {
+      background: var(--cream);
+      color: var(--ink);
+      padding: 14px 18px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      max-width: 85%;
+      box-shadow: 4px 4px 0 0 var(--ink);
+      position: relative; z-index: 2;
+    }
+    .slot .slot-tag {
+      display: block;
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: var(--c-coral);
+      margin-bottom: 4px;
+    }
+    .slot .slot-label {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.02em;
+      color: var(--ink-soft);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       BREADCRUMB (lime)
+    ═══════════════════════════════════════════════════════════════════ */
+    .crumb {
+      padding: 16px var(--gutter);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--c-lime);
+      border-bottom: var(--bw) solid var(--ink);
+      display: flex; align-items: center; gap: 14px;
+    }
+    .crumb a {
+      color: var(--ink); text-decoration: none;
+      background: var(--cream);
+      border: 2px solid var(--ink);
+      padding: 5px 12px;
+      border-radius: 999px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .crumb a:hover { background: var(--c-coral); color: var(--cream); }
+    .crumb .sep { color: var(--ink); font-family: var(--display); font-weight: 800; }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       DETAIL HERO (blue with coral org pill)
+    ═══════════════════════════════════════════════════════════════════ */
+    .dhero {
+      padding: clamp(60px, 9vw, 120px) var(--gutter) clamp(40px, 6vw, 80px);
+      background: var(--c-blue);
+      color: var(--cream);
+      border-bottom: var(--bw) solid var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .dhero::before {
+      content: ""; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--cream) 1.4px, transparent 1.6px);
+      background-size: 28px 28px;
+      opacity: 0.14;
+    }
+    .dhero-inner { max-width: var(--maxw); margin: 0 auto; position: relative; z-index: 2; }
+    .dhero .eyebrow { background: var(--c-mustard); color: var(--ink); margin-bottom: 32px; }
+    .dhero h1 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(56px, 9vw, 140px);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      margin: 0 0 28px;
+      color: var(--cream);
+    }
+    .dhero h1 .org-name {
+      display: inline-block;
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink);
+      background: var(--c-coral);
+      padding: 0 18px;
+      border-radius: 12px;
+      letter-spacing: -0.02em;
+      border: var(--bw) solid var(--ink);
+    }
+    .dhero .meta-row {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .dhero .meta-row .meta-card {
+      background: var(--cream); color: var(--ink);
+      border: var(--bw) solid var(--ink);
+      border-radius: 12px;
+      padding: 16px 18px;
+      box-shadow: 6px 6px 0 0 var(--ink);
+    }
+    .dhero .meta-row .label {
+      font-family: var(--mono);
+      font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--c-coral); margin-bottom: 8px;
+    }
+    .dhero .meta-row .value {
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(16px, 1.6vw, 20px); line-height: 1.2;
+      color: var(--ink);
+    }
+    @media (max-width: 720px) {
+      .dhero .meta-row { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       SECTION BLOCK
+    ═══════════════════════════════════════════════════════════════════ */
+    .sec {
+      padding: clamp(80px, 11vw, 140px) var(--gutter);
+      border-top: var(--bw) solid var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .sec.bg-cream { background: var(--cream); }
+    .sec.bg-coral { background: var(--c-coral); color: var(--cream); }
+    .sec.bg-mustard { background: var(--c-mustard); }
+    .sec.bg-lime { background: var(--c-lime); }
+    .sec.bg-lav { background: var(--c-lav); }
+    .sec.bg-pink { background: var(--c-pink); }
+
+    .sec:not(.bg-cream)::before {
+      content: ""; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--ink) 1.4px, transparent 1.6px);
+      background-size: 28px 28px;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .sec.bg-coral::before {
+      background-image: radial-gradient(circle, var(--cream) 1.4px, transparent 1.6px);
+      opacity: 0.16;
+    }
+
+    .sec-head {
+      max-width: var(--maxw);
+      margin: 0 auto clamp(40px, 6vw, 72px);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "eb eb" "h  sub";
+      column-gap: 24px; row-gap: 24px;
+      align-items: end;
+      position: relative; z-index: 2;
+    }
+    .sec-head > .eyebrow { grid-area: eb; justify-self: start; }
+    .sec-head > h2 { grid-area: h; }
+    .sec-head > .sub-label { grid-area: sub; }
+    .sec-head h2 {
+      font-family: var(--display); font-weight: 800;
+      font-size: clamp(40px, 6vw, 88px);
+      line-height: 0.93; letter-spacing: -0.028em;
+      margin: 0;
+    }
+    .sec-head h2 em {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      color: var(--c-coral); letter-spacing: -0.015em;
+    }
+    .sec.bg-coral .sec-head h2 em { color: var(--c-mustard); }
+    .sec-head .sub-label {
+      font-family: var(--mono); font-weight: 500;
+      font-size: 11px; line-height: 1;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--c-pink);
+      padding: 10px 16px;
+      border: var(--bw) solid var(--ink);
+      border-radius: 4px;
+      box-shadow: 4px 4px 0 0 var(--ink);
+      align-self: end;
+    }
+    .sec.bg-pink .sec-head .sub-label { background: var(--c-mustard); }
+    .sec.bg-mustard .sec-head .sub-label { background: var(--c-lime); }
+
+    .sec-body { max-width: var(--maxw); margin: 0 auto; position: relative; z-index: 2; }
+    .sec-intro {
+      margin: 0 0 clamp(40px, 6vw, 72px) 0;
+      font-family: var(--display); font-weight: 500;
+      font-size: clamp(20px, 2.2vw, 30px);
+      line-height: 1.3; letter-spacing: -0.015em;
+      color: var(--ink); position: relative; z-index: 2;
+    }
+    .sec.bg-coral .sec-intro { color: var(--cream); }
+    .sec-intro p { margin: 0 0 18px; }
+    .sec-intro p:last-child { margin-bottom: 0; }
+    .sec-intro em {
+      font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--c-coral);
+    }
+    .sec.bg-coral .sec-intro em { color: var(--c-mustard); }
+    .sec-intro .hl {
+      background: var(--c-mustard);
+      padding: 0 6px;
+      border: 2px solid var(--ink);
+      border-radius: 4px;
+      color: var(--ink);
+    }
+    .sec.bg-mustard .sec-intro .hl { background: var(--c-lime); }
+    .sec.bg-lime .sec-intro .hl { background: var(--c-mustard); }
+    .sec.bg-coral .sec-intro .hl { background: var(--c-mustard); }
+
+    /* Body prose (smaller, multi-paragraph) — used inside Section 02 story */
+    .prose {
+      margin: 0 auto clamp(36px, 5vw, 56px);
+      position: relative; z-index: 2;
+    }
+    .prose p {
+      font-family: var(--display); font-weight: 500;
+      font-size: clamp(17px, 1.4vw, 19px);
+      line-height: 1.55;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      margin: 0 0 18px;
+    }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose em {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      color: var(--c-coral);
+    }
+    .prose strong {
+      font-weight: 800;
+      background: var(--c-mustard);
+      padding: 1px 6px;
+      border: 2px solid var(--ink);
+      border-radius: 4px;
+    }
+    .sec.bg-mustard .prose strong { background: var(--c-lime); }
+
+    @media (max-width: 720px) {
+      .sec-head {
+        grid-template-columns: 1fr;
+        grid-template-areas: "eb" "h" "sub";
+        gap: 16px;
+      }
+      .sec-head > .sub-label { justify-self: start; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       CI PHOTO COLLAGE (5 photos, Memphis 12-col grid)
+    ═══════════════════════════════════════════════════════════════════ */
+    .ci-grid {
+      max-width: var(--maxw);
+      margin: 0 auto clamp(50px, 7vw, 80px);
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 80px;
+      gap: 18px;
+      position: relative; z-index: 2;
+    }
+    .ci-grid figure {
+      margin: 0; position: relative; overflow: hidden;
+      background: var(--cream);
+      border: var(--bw-thick) solid var(--ink);
+      box-shadow: 8px 8px 0 0 var(--ink);
+      cursor: zoom-in;
+    }
+    .ci-grid figure img { width: 100%; height: 100%; object-fit: cover; }
+
+    .ci-grid .ci-1 { grid-column: span 7; grid-row: span 6; }
+    .ci-grid .ci-2 { grid-column: span 5; grid-row: span 6; }
+    .ci-grid .ci-3 { grid-column: span 4; grid-row: span 5; }
+    .ci-grid .ci-4 { grid-column: span 4; grid-row: span 5; }
+    .ci-grid .ci-5 { grid-column: span 4; grid-row: span 5; }
+
+    @media (max-width: 900px) {
+      .ci-grid { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 90px; }
+      .ci-grid .ci-1 { grid-column: span 6; grid-row: span 5; }
+      .ci-grid .ci-2 { grid-column: span 3; grid-row: span 4; }
+      .ci-grid .ci-3 { grid-column: span 3; grid-row: span 4; }
+      .ci-grid .ci-4 { grid-column: span 3; grid-row: span 4; }
+      .ci-grid .ci-5 { grid-column: span 3; grid-row: span 4; }
+    }
+    @media (max-width: 560px) {
+      .ci-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+      .ci-grid figure { aspect-ratio: 4 / 3; }
+      .ci-grid figure[class*="ci-"] { grid-column: 1; grid-row: auto; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       PAIR (2-photo layout, used in sec 02 & sec 03)
+    ═══════════════════════════════════════════════════════════════════ */
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(24px, 4vw, 50px);
+    }
+    .pair-card .pair-img {
+      aspect-ratio: 4 / 3;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      border: var(--bw-thick) solid var(--ink);
+      box-shadow: 12px 12px 0 0 var(--ink);
+      cursor: zoom-in;
+    }
+    .pair-card .pair-img img { width: 100%; height: 100%; object-fit: cover; }
+    .pair-card .pair-cap {
+      margin-top: 22px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .pair-card .pair-cap .tag {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-coral);
+      font-weight: 500;
+    }
+    .pair-card .pair-cap .text {
+      font-family: var(--display); font-weight: 600;
+      font-size: clamp(15px, 1.4vw, 18px);
+      line-height: 1.4;
+      color: var(--ink);
+    }
+    @media (max-width: 720px) {
+      .pair { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       IMPACT GRID (4 photos with stat captions — Section 04)
+    ═══════════════════════════════════════════════════════════════════ */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(24px, 4vw, 44px);
+    }
+    .impact-card {
+      display: flex; flex-direction: column;
+    }
+    .impact-card .impact-img {
+      aspect-ratio: 4 / 3;
+      width: 100%;
+      overflow: hidden;
+      border: var(--bw) solid var(--ink);
+      box-shadow: 8px 8px 0 0 var(--ink);
+      background: var(--cream);
+      cursor: zoom-in;
+    }
+    .impact-card .impact-img img { width: 100%; height: 100%; object-fit: cover; }
+    .impact-card .impact-cap {
+      margin-top: 22px;
+      padding: 16px 18px;
+      background: var(--cream);
+      border: var(--bw) solid var(--ink);
+      border-radius: 8px;
+      box-shadow: 5px 5px 0 0 var(--ink);
+    }
+    .impact-card .impact-cap .num {
+      display: inline-block;
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--c-coral);
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 2px solid var(--ink);
+      margin-bottom: 10px;
+    }
+    .impact-card .impact-cap .text {
+      font-family: var(--display); font-weight: 600;
+      font-size: clamp(15px, 1.4vw, 17.5px);
+      line-height: 1.45;
+      color: var(--ink);
+    }
+    @media (max-width: 720px) {
+      .impact-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       DOCUMENT CARDS (Section 01 single + Section 05 pair)
+    ═══════════════════════════════════════════════════════════════════ */
+    .docs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(24px, 4vw, 40px);
+    }
+    .docs.single { grid-template-columns: minmax(0, 480px); }
+    .doc-card {
+      display: flex; flex-direction: column;
+      text-decoration: none; color: inherit;
+      background: var(--cream);
+      border: var(--bw) solid var(--ink);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 10px 10px 0 0 var(--ink);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .doc-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 14px 14px 0 0 var(--ink);
+    }
+    .doc-preview {
+      aspect-ratio: 4 / 3;
+      background: var(--c-pink);
+      position: relative;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      border-bottom: var(--bw) solid var(--ink);
+    }
+    .doc-card:nth-child(2) .doc-preview { background: var(--c-lime); }
+    .doc-card.solo .doc-preview { background: var(--c-mustard); }
+    .doc-preview::before {
+      content: ""; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--ink) 1.4px, transparent 1.6px);
+      background-size: 22px 22px;
+      opacity: 0.16;
+    }
+    .doc-preview .page {
+      position: relative; z-index: 2;
+      width: 64%;
+      height: 80%;
+      background: white;
+      box-shadow: 6px 6px 0 0 var(--ink);
+      border: var(--bw) solid var(--ink);
+      padding: 24px 26px;
+      overflow: hidden;
+    }
+    .doc-preview .page::before {
+      content: ""; position: absolute; top: 22px; right: 24px;
+      width: 22px; height: 22px;
+      background: var(--c-coral);
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+    }
+    .doc-preview .page .doc-mini-title {
+      font-family: var(--display); font-weight: 800;
+      font-size: 14px;
+      color: var(--ink);
+      margin-bottom: 12px;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+    }
+    .doc-preview .page .lines { display: grid; gap: 5px; }
+    .doc-preview .page .lines span {
+      display: block; height: 4px; background: oklch(0.88 0.005 70);
+      border-radius: 1px;
+    }
+    .doc-preview .page .lines span.short { width: 70%; }
+    .doc-preview .page .lines span.shorter { width: 40%; }
+
+    .doc-meta {
+      padding: 22px 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px 20px;
+      align-items: center;
+    }
+    .doc-meta .doc-type {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--c-mustard);
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 2px solid var(--ink);
+    }
+    .doc-meta .doc-action {
+      font-family: var(--display); font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: var(--ink);
+      padding: 8px 14px;
+      border-radius: 999px;
+    }
+    .doc-meta .doc-title {
+      grid-column: 1 / -1;
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(20px, 2vw, 26px);
+      line-height: 1.15;
+      letter-spacing: -0.012em;
+    }
+    .doc-meta .doc-sub {
+      grid-column: 1 / -1;
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.45;
+    }
+    @media (max-width: 720px) {
+      .docs { grid-template-columns: 1fr; }
+      .docs.single { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       MORE PHOTOS GALLERY (Section 06)
+    ═══════════════════════════════════════════════════════════════════ */
+    .more-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 80px;
+      gap: 16px;
+    }
+    .more-grid figure {
+      margin: 0; position: relative; overflow: hidden;
+      background: var(--cream);
+      border: var(--bw) solid var(--ink);
+      box-shadow: 6px 6px 0 0 var(--ink);
+      cursor: zoom-in;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .more-grid figure:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 9px 9px 0 0 var(--ink);
+    }
+    .more-grid figure img { width: 100%; height: 100%; object-fit: cover; }
+
+    .more-grid .m-1 { grid-column: span 5; grid-row: span 5; }
+    .more-grid .m-2 { grid-column: span 4; grid-row: span 5; }
+    .more-grid .m-3 { grid-column: span 3; grid-row: span 5; }
+    .more-grid .m-4 { grid-column: span 4; grid-row: span 4; }
+    .more-grid .m-5 { grid-column: span 8; grid-row: span 4; }
+
+    @media (max-width: 900px) {
+      .more-grid { grid-template-columns: repeat(6, 1fr); }
+      .more-grid figure[class*="m-"] { grid-column: span 3; grid-row: span 4; }
+    }
+    @media (max-width: 560px) {
+      .more-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+      .more-grid figure { aspect-ratio: 4 / 3; }
+      .more-grid figure[class*="m-"] { grid-column: 1; grid-row: auto; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       NEXT CHAPTER
+    ═══════════════════════════════════════════════════════════════════ */
+    .next {
+      background: var(--ink); color: var(--cream);
+      padding: clamp(80px, 11vw, 140px) var(--gutter);
+      border-top: var(--bw) solid var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .next::before {
+      content: ""; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--cream) 1.4px, transparent 1.6px);
+      background-size: 30px 30px;
+      opacity: 0.10;
+    }
+    .next-inner {
+      max-width: var(--maxw); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end;
+      position: relative; z-index: 2;
+    }
+    .next .eyebrow { background: var(--c-coral); color: var(--ink); margin-bottom: 18px; }
+    .next h2 {
+      font-family: var(--display); font-weight: 800;
+      font-size: clamp(48px, 7vw, 110px);
+      line-height: 0.92; letter-spacing: -0.028em;
+      margin: 0; color: var(--cream);
+    }
+    .next h2 em {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      color: var(--c-mustard);
+    }
+    @media (max-width: 720px) {
+      .next-inner { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       LIGHTBOX
+    ═══════════════════════════════════════════════════════════════════ */
+    .lightbox {
+      position: fixed; inset: 0;
+      background: oklch(0.10 0.01 50 / 0.92);
+      display: none;
+      align-items: center; justify-content: center;
+      z-index: 200;
+      padding: 4vw;
+      cursor: zoom-out;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      object-fit: contain;
+    }
+    .lightbox .lb-close {
+      position: absolute; top: 24px; right: 28px;
+      background: var(--c-coral);
+      color: var(--ink);
+      border: var(--bw) solid var(--ink);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 0 var(--cream);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ BREADCRUMB ═══ -->
+  <nav class="crumb">
+    <a href="portfolio.html">← Portfolio</a>
+    <span class="sep">/</span>
+    Gandhi Fellowship
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <header class="dhero">
+    <div class="dhero-inner">
+      <span class="eyebrow">Work Experience · Chapter 02</span>
+      <h1>
+        Gandhi Fellow
+        <span class="org-name">Piramal Foundation.</span>
+      </h1>
+      <div class="meta-row">
+        <div class="meta-card">
+          <div class="label">Location</div>
+          <div class="value">Himachal Pradesh, India</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Duration</div>
+          <div class="value">Jul 2024 — Aug 2025</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Focus</div>
+          <div class="value">Education, Community &amp; Development</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Setting</div>
+          <div class="value">Chamba · 10 schools · 10 Panchayats</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ 01 — LIVING THE COMMUNITY ═══ -->
+  <section class="sec bg-cream">
+    <div class="sec-head">
+      <span class="eyebrow">01 — Community Immersion</span>
+      <h2>Living the community,<br />not just <em>studying</em> it.</h2>
+      <span class="sub-label">Chapter 01</span>
+    </div>
+
+    <div class="sec-body">
+
+
+<div class="sec-intro">
+        <p>
+          This is a documentation of my community immersion experience, where I stayed with a family of 11 members from the community to understand the community's challenges, culture, and everyday life while building empathy and deeper connections.
+        </p>
+        <p>
+          This is not just a report or a document, but a <em>reflection</em> of what I saw, observed, experienced, and learned. It is the story of the community in Chamba, seen through my eyes.
+        </p>
+      </div>
+
+      <!-- CI documentation PDF -->
+      <div class="docs single" style="margin-bottom: clamp(60px, 8vw, 96px);">
+        <a class="doc-card solo" target="_blank" rel="noopener"
+           href="Work/Gandhi%20Fellowship/Thesis.docx.pdf">
+          <div class="doc-preview">
+            <div class="page">
+              <div class="doc-mini-title">Community<br />Immersion —<br />GP Karian</div>
+              <div class="lines">
+                <span></span><span></span><span class="short"></span>
+                <span></span><span class="shorter"></span><span></span>
+                <span class="short"></span><span></span>
+              </div>
+            </div>
+          </div>
+          <div class="doc-meta">
+            <div class="doc-type">PDF · Thesis</div>
+            <div class="doc-action">Open ↗</div>
+            <div class="doc-title">Community Immersion — GP Karian</div>
+            <div class="doc-sub">A reflective documentation of the immersion in Chamba — observations, conversations, and learnings from living with the host family.</div>
+          </div>
+        </a>
+      </div>
+      <!-- 5 CI photos in Memphis collage -->
+      <div class="ci-grid" style="margin-bottom: clamp(60px, 8vw, 96px);">
+        <figure class="ci-1" data-lightbox
+                data-src="Work/Gandhi%20Fellowship/CI%20Immesion%20photos/WhatsApp%20Image%202026-05-27%20at%2017.42.27.jpeg">
+          <img src="Work/Gandhi%20Fellowship/CI%20Immesion%20photos/WhatsApp%20Image%202026-05-27%20at%2017.42.27.jpeg"
+               alt="In the kitchen with the host family" loading="lazy" />
+        </figure>
+        <figure class="ci-2" data-lightbox
+                data-src="Work/Gandhi%20Fellowship/CI%20Immesion%20photos/WhatsApp%20Image%202026-05-27%20at%2017.42.26%20(1).jpeg">
+          <img src="Work/Gandhi%20Fellowship/CI%20Immesion%20photos/WhatsApp%20Image%202026-05-27%20at%2017.42.26%20(1).jpeg"
+               alt="With the family parrot" loading="lazy" />
+        </figure>
+        <figure class="ci-3" data-lightbox
+                data-src="Work/Gandhi%20Fellowship/CI%20Immesion%20photos/WhatsApp%20Image%202026-05-27%20at%2017.42.25.jpeg">
+          <img src="Work/Gandhi%20Fellowship/CI%20Immesion%20photos/WhatsApp%20Image%202026-05-27%20at%2017.42.25.jpeg"
+               alt="Sweeping the yard" loading="lazy" />
+        </figure>
+        <figure class="ci-4" data-lightbox
+                data-src="Work/Gandhi%20Fellowship/CI%20Immesion%20photos/WhatsApp%20Image%202026-05-27%20at%2017.42.26.jpeg">
+          <img src="Work/Gandhi%20Fellowship/CI%20Immesion%20photos/WhatsApp%20Image%202026-05-27%20at%2017.42.26.jpeg"
+               alt="Distributing newspapers at dawn" loading="lazy" />
+        </figure>
+        <figure class="ci-5" data-lightbox
+                data-src="Work/Gandhi%20Fellowship/CI%20Immesion%20photos/WhatsApp%20Image%202026-05-27%20at%2017.42.26%20(2).jpeg">
+          <img src="Work/Gandhi%20Fellowship/CI%20Immesion%20photos/WhatsApp%20Image%202026-05-27%20at%2017.42.26%20(2).jpeg"
+               alt="Working in the fields alongside community members" loading="lazy" />
+        </figure>
+      </div>
+
+      <!-- Post-collage reflection -->
+      <div class="prose">
+        <p>
+          Over time, I became a part of their daily life — helping with chores, cleaning the cowshed, delivering newspapers, and working in the fields alongside them.
+        </p>
+        <p>
+          What began as a part of the Gandhi Fellowship soon became <em>much more than an assignment.</em> It was an experience that touched me deeply and continues to stay with me.
+        </p>
+        <p>
+          The relationship I built with the family is one I will always cherish, and fortunately, we are <strong>still connected today.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 02 — GCPS RAJERA TRANSFORMATION ═══ -->
+  <section class="sec bg-mustard">
+    <div class="sec-head">
+      <span class="eyebrow" style="background:var(--c-blue); color:var(--cream);">02 — School Infrastructure</span>
+      <h2>Transformation through<br /><em>resilience.</em></h2>
+      <span class="sub-label">GCPS Rajera, HP</span>
+    </div>
+
+    <div class="sec-body">
+      <div class="prose">
+        <p>
+          The school infrastructure had been damaged for years, and despite continuous efforts by the teachers, the funds had still not been approved. During my Gandhi Fellowship, this school came under my responsibility. After seeing the poor condition of the classrooms and washrooms, I took the initiative to address the issue.
+        </p>
+        <p>
+          I conducted multiple meetings with the <em>Pradhan</em> to help get the funds approved and, even after the approval, continued following up regularly through calls and meetings to ensure the process moved forward.
+        </p>
+        <p>
+          By the end of January, the repair work had finally begun. Today, the school has <strong>improved classrooms and better washroom facilities</strong>, creating a more dignified learning environment for the students.
+        </p>
+      </div>
+
+      <div class="pair">
+        <div class="pair-card">
+          <div class="pair-img" data-lightbox>
+            <img src="Work/Gandhi%20Fellowship/Classroom%20wahsroom/before.jpeg" alt="GCPS Rajera classroom — before repairs" loading="lazy" />
+          </div>
+          <div class="pair-cap">
+            <div class="tag">Before · Classrooms</div>
+            <div class="text">The classrooms and washrooms had been in disrepair for years.</div>
+          </div>
+        </div>
+        <div class="pair-card">
+          <div class="pair-img" data-lightbox>
+            <img src="Work/Gandhi%20Fellowship/Classroom%20wahsroom/after.jpeg" alt="GCPS Rajera classroom — after repairs" loading="lazy" />
+          </div>
+          <div class="pair-cap">
+            <div class="tag">After · January 2025</div>
+            <div class="text">A dignified learning environment for the students of GCPS Rajera.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 03 — CHAMBA UNIVERSITY SEL SESSION ═══ -->
+  <section class="sec bg-coral">
+    <div class="sec-head">
+      <span class="eyebrow" style="background:var(--ink); color:var(--c-mustard);">03 — Youth &amp; Wellbeing</span>
+      <h2>A session on <em>social &amp; emotional</em> well-being.</h2>
+      <span class="sub-label" style="background:var(--c-mustard);">300+ students</span>
+    </div>
+
+    <div class="sec-body">
+      <div class="sec-intro">
+        <p>
+          Conducted a session on Social and Emotional Well-being for over <strong style="background:var(--c-mustard);padding:0 6px;border:2px solid var(--ink);border-radius:4px;color:var(--ink);font-weight:800">300 students</strong> at Chamba University.
+        </p>
+        <p>
+          Mental health and emotional well-being have always been areas of deep interest for me. Through this session, I aimed to encourage meaningful conversations around self-awareness, emotional resilience, and the importance of seeking support when needed. It was an opportunity to engage with young people on a subject that I believe is essential for both personal and academic growth.
+        </p>
+      </div>
+
+      <div class="pair">
+        <div class="pair-card">
+          <div class="pair-img" data-lightbox
+               data-src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202026-05-23%20at%207.51.39%20PM.jpeg">
+            <img src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202026-05-23%20at%207.51.39%20PM.jpeg"
+                 alt="The session at Chamba University — full lecture hall" loading="lazy" />
+          </div>
+          <div class="pair-cap">
+            <div class="tag" style="color:var(--c-mustard)">Chamba University</div>
+            <div class="text" style="color:var(--cream)">A full lecture hall of students gathered for the well-being session.</div>
+          </div>
+        </div>
+        <div class="pair-card">
+          <div class="pair-img" data-lightbox
+               data-src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202026-05-23%20at%207.51.39%20PM1.jpeg">
+            <img src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202026-05-23%20at%207.51.39%20PM1.jpeg"
+                 alt="Hindi newspaper coverage of the workshop" loading="lazy" />
+          </div>
+          <div class="pair-cap">
+            <div class="tag" style="color:var(--c-mustard)">Press Coverage</div>
+            <div class="text" style="color:var(--cream)">Local Hindi newspaper coverage of the workshop.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 04 — SCHOOL, COMMUNITY & GOVERNANCE ═══ -->
+  <section class="sec bg-lime">
+    <div class="sec-head">
+      <span class="eyebrow" style="background:var(--c-blue); color:var(--cream);">04 — Fellowship Work</span>
+      <h2>School, community<br />&amp; <em>governance.</em></h2>
+      <span class="sub-label">2024–25</span>
+    </div>
+
+    <div class="sec-body">
+      <div class="sec-intro">
+        <p>
+          From facilitating Bal Sabhas and leading school assemblies to conducting community clean-up drives and presenting at Gram Sabhas — <span class="hl">a year of learning by doing.</span>
+        </p>
+      </div>
+
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-img" data-lightbox
+               data-src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202026-05-23%20at%207.51.38%20PM%20(1).jpeg">
+            <img src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202026-05-23%20at%207.51.38%20PM%20(1).jpeg"
+                 alt="At the Gram Sabha banner — Gandhi Jayanti" loading="lazy" />
+          </div>
+          <div class="impact-cap">
+            <span class="num">01 · 20+ Gram Sabhas</span>
+            <div class="text">Conducted 20+ Gram Sabhas across 10 Gram Panchayats to raise awareness about GPDP and LSDG.</div>
+          </div>
+        </div>
+
+        <div class="impact-card">
+          <div class="impact-img" data-lightbox
+               data-src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202025-04-29%20at%2011.36.41_d6020dff.jpg">
+            <img src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202025-04-29%20at%2011.36.41_d6020dff.jpg"
+                 alt="Cleanliness drive in the mountain community" loading="lazy" />
+          </div>
+          <div class="impact-cap">
+            <span class="num">02 · 500+ mobilised</span>
+            <div class="text">Led cleanliness drives across 4 Gram Panchayats, mobilizing over 500 people.</div>
+          </div>
+        </div>
+
+        <div class="impact-card">
+          <div class="impact-img" data-lightbox
+               data-src="Work/Gandhi%20Fellowship/pictures/IMG_1979.JPG">
+            <img src="Work/Gandhi%20Fellowship/pictures/IMG_1979.JPG"
+                 alt="Facilitating a Bal Sabha with parents and community" loading="lazy" />
+          </div>
+          <div class="impact-cap">
+            <span class="num">03 · 10+ Bal Sabhas</span>
+            <div class="text">Conducted 10+ Bal Sabhas across 10 schools to promote children's rights and critical thinking.</div>
+          </div>
+        </div>
+
+        <div class="impact-card">
+          <div class="impact-img" data-lightbox
+               data-src="Work/Gandhi%20Fellowship/pictures/IMG-20250508-WA0064.jpg">
+            <img src="Work/Gandhi%20Fellowship/pictures/IMG-20250508-WA0064.jpg"
+                 alt="Children displaying their artwork in class" loading="lazy" />
+          </div>
+          <div class="impact-cap">
+            <span class="num">04 · 8 schools</span>
+            <div class="text">Contributed to activity-based learning methods across 8 schools to improve SLOs and build critical thinking.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 05 — REPORTS & DOCUMENTS ═══ -->
+  <section class="sec bg-lav">
+    <div class="sec-head">
+      <span class="eyebrow" style="background:var(--ink); color:var(--c-mustard);">05 — Reports &amp; Documents</span>
+      <h2>Field research &amp;<br /><em>documentation.</em></h2>
+      <span class="sub-label" style="background:var(--c-mustard);">2 plans</span>
+    </div>
+
+    <div class="sec-body">
+      <div class="sec-intro">
+        <p>Reports and plans produced during the fellowship — spanning community action plans.</p>
+      </div>
+
+      <div class="docs">
+        <a class="doc-card" target="_blank" rel="noopener"
+           href="Work/Gandhi%20Fellowship/GPDP%20Analysis%20Report%20of%20GP%20Karian.pdf">
+          <div class="doc-preview">
+            <div class="page">
+              <div class="doc-mini-title">GPDP<br />Analysis —<br />GP Karian</div>
+              <div class="lines">
+                <span></span><span></span><span class="short"></span>
+                <span></span><span></span><span class="shorter"></span>
+                <span></span><span class="short"></span>
+              </div>
+            </div>
+          </div>
+          <div class="doc-meta">
+            <div class="doc-type">PDF · Report</div>
+            <div class="doc-action">Open ↗</div>
+            <div class="doc-title">GPDP Analysis Report of GP Karian</div>
+            <div class="doc-sub">Gram Panchayat Development Plan analysis — needs assessment, gaps &amp; recommendations for GP Karian.</div>
+          </div>
+        </a>
+
+        <a class="doc-card" target="_blank" rel="noopener"
+           href="Work/Gandhi%20Fellowship/Waste%20Management%20Plan%20GP%20%20Kariyan.pdf">
+          <div class="doc-preview">
+            <div class="page">
+              <div class="doc-mini-title">Waste<br />Management —<br />GP Kariyan</div>
+              <div class="lines">
+                <span></span><span class="short"></span><span></span>
+                <span class="shorter"></span><span></span><span></span>
+                <span class="short"></span><span></span>
+              </div>
+            </div>
+          </div>
+          <div class="doc-meta">
+            <div class="doc-type">PDF · Action Plan</div>
+            <div class="doc-action">Open ↗</div>
+            <div class="doc-title">Waste Management Plan — GP Kariyan</div>
+            <div class="doc-sub">Community-level solid-waste plan, prepared for Gram Panchayat Kariyan and presented at the Gram Sabha.</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 06 — MORE PHOTOS ═══ -->
+  <section class="sec bg-pink">
+    <div class="sec-head">
+      <span class="eyebrow" style="background:var(--c-blue); color:var(--cream);">06 — More from the field</span>
+      <h2>More <em style=color:#000000 !important>photos.</em></h2>
+      <span class="sub-label">Gallery</span>
+    </div>
+
+    <div class="sec-body">
+      <div class="more-grid">
+        <figure class="m-1" data-lightbox
+                data-src="Work/Gandhi%20Fellowship/pictures/IMG_2003.JPG">
+          <img src="Work/Gandhi%20Fellowship/pictures/IMG_2003.JPG"
+               alt="Leading the school assembly" loading="lazy" />
+        </figure>
+        <figure class="m-2" data-lightbox
+                data-src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202026-05-23%20at%207.51.39%20PM2.jpeg">
+          <img src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202026-05-23%20at%207.51.39%20PM2.jpeg"
+               alt="School assembly in the mountains" loading="lazy" />
+        </figure>
+        <figure class="m-3" data-lightbox
+                data-src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202025-04-29%20at%2011.36.41_15d18df1.jpg">
+          <img src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202025-04-29%20at%2011.36.41_15d18df1.jpg"
+               alt="Trekking through the hillside community" loading="lazy" />
+        </figure>
+        <figure class="m-4" data-lightbox
+                data-src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202026-05-23%20at%207.51.39%20PM3.jpeg">
+          <img src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202026-05-23%20at%207.51.39%20PM3.jpeg"
+               alt="Indoor Ward Sabha meeting" loading="lazy" />
+        </figure>
+        <figure class="m-5" data-lightbox
+                data-src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202025-06-13%20at%2020.24.58_fb3f8ea8.jpg">
+          <img src="Work/Gandhi%20Fellowship/pictures/WhatsApp%20Image%202025-06-13%20at%2020.24.58_fb3f8ea8.jpg"
+               alt="Outdoor Gram Sabha — community circle under trees" loading="lazy" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ NEXT CHAPTER ═══ -->
+  <section class="next">
+    <div class="next-inner">
+      <div>
+        <span class="eyebrow">Back to the start</span>
+        <h2>Read another <em>chapter.</em></h2>
+      </div>
+      <a href="portfolio.html" class="btn">← Back to portfolio</a>
+    </div>
+  </section>
+
+  <!-- ═══ LIGHTBOX ═══ -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lb-close">✕ Close</button>
+    <div id="lb-content"></div>
+  </div>
+
+  <script>
+    (function lightbox() {
+      const lb = document.getElementById('lightbox');
+      const content = document.getElementById('lb-content');
+      const close = document.getElementById('lb-close');
+
+      document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('[data-lightbox]');
+        if (!trigger) return;
+        const src = trigger.dataset.src;
+        content.innerHTML = '';
+        if (src && /\.(png|jpe?g|webp|gif)$/i.test(src)) {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = trigger.querySelector('img')?.alt || '';
+          content.appendChild(img);
+          lb.classList.add('open');
+        }
+      });
+
+      const closeLb = () => lb.classList.remove('open');
+      close.addEventListener('click', (e) => { e.stopPropagation(); closeLb(); });
+      lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Links Foundation — Amrita Ray</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════
+       SYSTEM TOKENS — shared across the portfolio
+    ═══════════════════════════════════════════════════════════════════ */
+    :root {
+      --cream: oklch(0.96 0.025 85);
+      --cream-2: oklch(0.93 0.030 85);
+      --ink: oklch(0.16 0.015 50);
+      --ink-soft: oklch(0.28 0.015 50);
+      --paper: oklch(0.99 0.015 85);
+
+      --c-coral: oklch(0.68 0.20 25);
+      --c-pink: oklch(0.74 0.19 5);
+      --c-mustard: oklch(0.83 0.16 85);
+      --c-blue: oklch(0.60 0.18 245);
+      --c-lime: oklch(0.82 0.18 145);
+      --c-lav: oklch(0.74 0.13 305);
+
+      --muted: oklch(0.50 0.015 60);
+      --line: var(--ink);
+
+      --serif: "Instrument Serif", "Cormorant Garamond", Georgia, serif;
+      --display: "Bricolage Grotesque", "Space Grotesk", -apple-system, sans-serif;
+      --sans: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+      --bw: 3px;
+      --bw-thick: 4px;
+      --r-soft: 8px;
+      --r-pill: 999px;
+      --shadow: 8px 8px 0 0 var(--ink);
+      --shadow-lg: 14px 14px 0 0 var(--ink);
+
+      --maxw: 1320px;
+      --gutter: clamp(20px, 4vw, 56px);
+
+      --tilt-mult: 0;       /* Bauhaus mode — no random tilts */
+      --deco-opacity: 0.12;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+
+    /* ── Eyebrow & button primitives ── */
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--c-mustard);
+      border: var(--bw) solid var(--ink);
+      padding: 5px 12px 4px;
+      display: inline-block;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: var(--c-coral);
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: var(--bw) solid var(--ink);
+      border-radius: var(--r-pill);
+      box-shadow: var(--shadow);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover { transform: translate(-2px, -2px); box-shadow: 12px 12px 0 0 var(--ink); }
+    .btn:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 0 var(--ink); }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       BREADCRUMB
+    ═══════════════════════════════════════════════════════════════════ */
+    .crumb {
+      padding: 16px var(--gutter);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--c-mustard);
+      border-bottom: var(--bw) solid var(--ink);
+      display: flex; align-items: center; gap: 14px;
+    }
+    .crumb a {
+      color: var(--ink); text-decoration: none;
+      background: var(--cream);
+      border: 2px solid var(--ink);
+      padding: 5px 12px;
+      border-radius: 999px;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s, color 0.15s;
+    }
+    .crumb a:hover {
+      background: var(--c-coral);
+      color: var(--cream);
+    }
+    .crumb .sep { color: var(--ink); font-family: var(--display); font-weight: 800; }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       DETAIL HERO
+    ═══════════════════════════════════════════════════════════════════ */
+    .dhero {
+      padding: clamp(60px, 9vw, 120px) var(--gutter) clamp(40px, 6vw, 80px);
+      background: var(--c-coral);
+      color: var(--ink);
+      border-bottom: var(--bw) solid var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .dhero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--ink) 1.6px, transparent 1.8px);
+      background-size: 28px 28px;
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .dhero-inner { max-width: var(--maxw); margin: 0 auto; position: relative; z-index: 2; }
+    .dhero .eyebrow { background: var(--ink); color: var(--c-mustard); margin-bottom: 32px; }
+    .dhero h1 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(56px, 9vw, 140px);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      margin: 0 0 28px;
+      color: var(--ink);
+    }
+    .dhero h1 .org-name {
+      display: inline-block;
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--cream);
+      background: var(--ink);
+      padding: 0 18px;
+      border-radius: 12px;
+      letter-spacing: -0.02em;
+    }
+    .dhero .meta-row {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .dhero .meta-row .meta-card {
+      background: var(--cream);
+      border: var(--bw) solid var(--ink);
+      border-radius: 12px;
+      padding: 16px 18px;
+      box-shadow: 6px 6px 0 0 var(--ink);
+    }
+    .dhero .meta-row .label {
+      font-family: var(--mono);
+      font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--c-coral); margin-bottom: 8px;
+    }
+    .dhero .meta-row .value {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(16px, 1.6vw, 20px);
+      line-height: 1.2;
+      color: var(--ink);
+    }
+    @media (max-width: 720px) {
+      .dhero .meta-row { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       SECTION BLOCK
+    ═══════════════════════════════════════════════════════════════════ */
+    .sec {
+      padding: clamp(80px, 11vw, 140px) var(--gutter);
+      border-top: var(--bw) solid var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .sec.bg-cream { background: var(--cream); }
+    .sec.bg-mustard { background: var(--c-mustard); }
+    .sec.bg-blue { background: var(--c-blue); color: var(--cream); }
+
+    .sec:not(.bg-cream)::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--ink) 1.4px, transparent 1.6px);
+      background-size: 28px 28px;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .sec.bg-blue::before {
+      background-image: radial-gradient(circle, var(--cream) 1.4px, transparent 1.6px);
+      opacity: 0.14;
+    }
+
+    .sec-head {
+      max-width: var(--maxw);
+      margin: 0 auto clamp(40px, 6vw, 72px);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+      position: relative;
+      z-index: 2;
+    }
+    .sec-head h2 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(40px, 6vw, 88px);
+      line-height: 0.93;
+      letter-spacing: -0.028em;
+      margin: 0;
+    }
+    .sec-head h2 em {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      color: var(--c-coral);
+      letter-spacing: -0.015em;
+    }
+    .sec.bg-blue .sec-head h2 em { color: var(--c-mustard); }
+    .sec-body {
+      max-width: var(--maxw); margin: 0 auto;
+      position: relative; z-index: 2;
+    }
+    .sec-intro {
+      max-width: 840px;
+      margin: 0 0 clamp(40px, 6vw, 72px) 0;
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(18px, 2.2vw, 30px);
+      line-height: 1.3;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+    .sec.bg-blue .sec-intro { color: var(--cream); }
+    .sec-intro em {
+      font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--c-coral);
+    }
+    .sec.bg-blue .sec-intro em { color: var(--c-mustard); }
+    .sec-intro .hl {
+      background: var(--c-mustard);
+      color: var(--ink);
+      padding: 2px 8px;
+      border: 2px solid var(--ink);
+      border-radius: 6px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      box-shadow: 3px 3px 0 0 var(--ink);
+    }
+    .sec.bg-mustard .sec-intro .hl { background: var(--c-lime); }
+    @media (max-width: 720px) {
+      .sec-head { gap: 16px; }
+      .sec { padding: clamp(56px, 11vw, 140px) var(--gutter); }
+    }
+    @media (max-width: 480px) {
+      .dhero .meta-row { grid-template-columns: 1fr; }
+      .sec-intro { font-size: clamp(16px, 4.5vw, 20px); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       POSTER GRID (15 tiles, classroom decor)
+    ═══════════════════════════════════════════════════════════════════ */
+    .poster-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 1100px) { .poster-grid { grid-template-columns: repeat(4, 1fr); } }
+    @media (max-width: 800px)  { .poster-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 520px)  { .poster-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .poster {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      cursor: zoom-in;
+      overflow: hidden;
+      background: var(--c-mustard);
+      border: var(--bw) solid var(--ink);
+      box-shadow: 6px 6px 0 0 var(--ink);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .poster:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 9px 9px 0 0 var(--ink);
+    }
+    .poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       COLLATERAL PAIR (Darpan + Summer Contest)
+    ═══════════════════════════════════════════════════════════════════ */
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(24px, 4vw, 50px);
+    }
+    .pair-card .pair-img {
+      aspect-ratio: 3 / 4;
+      width: 100%;
+      cursor: zoom-in;
+      position: relative;
+      overflow: hidden;
+      border: var(--bw-thick) solid var(--ink);
+      box-shadow: 12px 12px 0 0 var(--ink);
+      background: var(--c-pink);
+    }
+    .pair-card:nth-child(1) .pair-img { background: var(--c-blue); }
+    .pair-card:nth-child(2) .pair-img { background: var(--c-lime); }
+    .pair-card .pair-img img { width: 100%; height: 100%; object-fit: cover; }
+    .pair-card .pair-meta {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .pair-card .pair-meta .title {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(20px, 2.2vw, 28px);
+      line-height: 1.15;
+      letter-spacing: -0.012em;
+      color: var(--ink);
+    }
+    .sec.bg-blue .pair-card .pair-meta .title { color: var(--cream); }
+    .pair-card .pair-meta .title em {
+      font-family: var(--serif); font-weight: 400; font-style: italic;
+      color: var(--c-mustard);
+      font-size: 1.5em;
+      line-height: 1.1;
+      display: inline-block;
+      margin-top: 4px;
+    }
+    .pair-card .pair-meta .kind {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--c-mustard);
+      padding: 6px 12px;
+      border-radius: 4px;
+      border: 2px solid var(--ink);
+      white-space: nowrap;
+      align-self: flex-start;
+    }
+    @media (max-width: 720px) {
+      .pair { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       VIDEO BLOCK
+    ═══════════════════════════════════════════════════════════════════ */
+    .video-frame {
+      aspect-ratio: 16 / 9;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+      border: var(--bw-thick) solid var(--ink);
+      box-shadow: 16px 16px 0 0 var(--c-coral);
+    }
+    .video-frame video {
+      width: 100%; height: 100%;
+      display: block;
+      object-fit: cover;
+      background: var(--ink);
+    }
+    .video-caption {
+      margin-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 14px 18px;
+      background: var(--cream);
+      border: var(--bw) solid var(--ink);
+      border-radius: 10px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink);
+      box-shadow: 5px 5px 0 0 var(--ink);
+    }
+    .video-caption .duration {
+      background: var(--c-coral); color: var(--cream);
+      padding: 4px 10px; border-radius: 999px;
+      border: 2px solid var(--ink);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       NEXT CHAPTER
+    ═══════════════════════════════════════════════════════════════════ */
+    .next {
+      background: var(--ink);
+      color: var(--cream);
+      padding: clamp(80px, 11vw, 140px) var(--gutter);
+      border-top: var(--bw) solid var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .next::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--cream) 1.4px, transparent 1.6px);
+      background-size: 30px 30px;
+      opacity: 0.10;
+    }
+    .next-inner {
+      max-width: var(--maxw); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end;
+      position: relative; z-index: 2;
+    }
+    .next .eyebrow { background: var(--c-mustard); color: var(--ink); margin-bottom: 18px; }
+    .next h2 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(48px, 7vw, 110px);
+      line-height: 0.92;
+      letter-spacing: -0.028em;
+      margin: 0;
+      color: var(--cream);
+    }
+    .next h2 em {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      color: var(--c-coral);
+    }
+    @media (max-width: 720px) {
+      .next-inner { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       LIGHTBOX (poster + collateral zoom)
+    ═══════════════════════════════════════════════════════════════════ */
+    .lightbox {
+      position: fixed; inset: 0;
+      background: oklch(0.10 0.01 50 / 0.92);
+      display: none;
+      align-items: center; justify-content: center;
+      z-index: 200;
+      padding: 4vw;
+      cursor: zoom-out;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      object-fit: contain;
+    }
+    .lightbox .lb-close {
+      position: absolute; top: 24px; right: 28px;
+      background: var(--c-coral);
+      color: var(--ink);
+      border: var(--bw) solid var(--ink);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 0 var(--cream);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ BREADCRUMB ═══ -->
+  <nav class="crumb">
+    <a href="portfolio.html">← Portfolio</a>
+    <span class="sep">/</span>
+    Open Links Foundation
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <header class="dhero">
+    <div class="dhero-inner">
+      <span class="eyebrow">Work Experience · Chapter 01</span>
+      <h1>
+        Communication and Content Associate 
+        <span class="org-name">Open Links Foundation.</span>
+      </h1>
+      <div class="meta-row">
+        <div class="meta-card">
+          <div class="label">Location</div>
+          <div class="value">Pune, Maharashtra</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Duration</div>
+          <div class="value">Mar 2026 — Present</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Focus</div>
+          <div class="value">Communication, Design &amp; Life Skills</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Audience</div>
+          <div class="value">Students · Teachers · Stakeholders</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ 01 — NANHE SITARE ═══ -->
+  <section class="sec bg-cream">
+    <div class="sec-head">
+      <span class="eyebrow">01 — Nanhe Sitare Event</span>
+      <h2>Classroom decor ideas<br />&amp; <em>posters.</em></h2>
+    </div>
+    <div class="sec-body">
+      <p class="sec-intro">
+        Nanhe Sitare is a district-level event where students from different blocks and ZP schools compete in Spelling Bee, Spoken English, Poetry Recitation, and Storytelling. These posters were designed to make the competition <span class="hl">fun, interactive &amp; engaging</span> — turning each classroom into a lively, encouraging space for the children.
+      </p>
+      <div class="poster-grid" id="poster-grid">
+        <!-- 15 poster tiles, populated by JS below -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 02 — COLLATERAL ═══ -->
+  <section class="sec bg-blue">
+    <div class="sec-head">
+      <span class="eyebrow" style="background:var(--c-mustard); color:var(--ink);">02 — Collateral Design</span>
+      <h2>Event posters &amp;<br /><em>communication</em> materials.</h2>
+    </div>
+    <div class="sec-body">
+      <p class="sec-intro">
+        Two audiences, two voices. The Darpan invite is formal and annual-report-styled — built for government stakeholders. The Summer Contest poster is playful and saturated — built for children. <em>Same designer, deliberately different registers.</em>
+      </p>
+      <div class="pair">
+        <div class="pair-card">
+          <div class="pair-img"
+               data-lightbox
+               data-src="Work/Open%20Links%20Foundation/Darpan%202026%20Save%20the%20Date%20-%20Annual%20Report%20Style%20(6).png"
+               data-label="Darpan 2026 Save the Date">
+            <img src="Work/Open%20Links%20Foundation/Darpan%202026%20Save%20the%20Date%20-%20Annual%20Report%20Style%20(6).png"
+                 alt="Darpan 2026 Save the Date" loading="lazy" />
+          </div>
+          <div class="pair-meta">
+            <div class="title">Invitation Poster<br /><em>for stakeholders</em></div>
+            <div class="kind">Darpan 2026</div>
+          </div>
+        </div>
+
+        <div class="pair-card">
+          <div class="pair-img"
+               data-lightbox
+               data-src="Work/Open%20Links%20Foundation/Life%20Skills%20Summer%20Contest%202026.png"
+               data-label="Life Skills Summer Contest 2026">
+            <img src="Work/Open%20Links%20Foundation/Life%20Skills%20Summer%20Contest%202026.png"
+                 alt="Life Skills Summer Contest 2026" loading="lazy" />
+          </div>
+          <div class="pair-meta">
+            <div class="title">Summer Contest Poster<br /><em>for children</em></div>
+            <div class="kind">Life Skills 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 03 — IMPACT VIDEO ═══ -->
+  <section class="sec bg-mustard">
+    <div class="sec-head">
+      <span class="eyebrow" style="background:var(--c-coral); color:var(--cream);">03 — Impact Video Creation</span>
+      <h2>Shikshan Utsav<br />— <em>Darpan.</em></h2>
+    </div>
+    <div class="sec-body">
+      <p class="sec-intro">
+        One of the impact videos I created for Darpan, the annual event of the Open Links Foundation. The film was screened for <span class="hl">government stakeholders, mentors &amp; trustees</span> of the organisation.
+      </p>
+      <div class="video-frame">
+        <video controls preload="metadata"
+               src="Work/Open%20Links%20Foundation/Shikshan%20Utsav%20-%20Darpan%20(2).mp4"></video>
+      </div>
+      <div class="video-caption">
+        <div>Shikshan Utsav — Darpan Annual Event · Open Links Foundation · 2026</div>
+        <div class="duration">Impact Film</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ NEXT CHAPTER ═══ -->
+  <section class="next">
+    <div class="next-inner">
+      <div>
+        <span class="eyebrow">Next chapter →</span>
+        <h2>Gandhi <em>Fellowship.</em></h2>
+      </div>
+      <a href="gandhi.html" class="btn">Read next →</a>
+    </div>
+  </section>
+
+  <!-- ═══ LIGHTBOX ═══ -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lb-close">✕ Close</button>
+    <div id="lb-content"></div>
+  </div>
+
+  <script>
+    /* ── Build 15 poster tiles ── */
+    (function buildGrid() {
+      const grid = document.getElementById('poster-grid');
+      for (let i = 1; i <= 15; i++) {
+        const path = `Work/Open Links Foundation/Classroom Decoration Posters/${i}.png`;
+        const el = document.createElement('div');
+        el.className = 'poster';
+        el.dataset.lightbox = '';
+        el.dataset.src = encodeURI(path);
+        el.dataset.label = `Poster ${i} / 15`;
+        el.innerHTML = `<img src="${encodeURI(path)}" alt="Poster ${i} / 15" loading="lazy" />`;
+        grid.appendChild(el);
+      }
+    })();
+
+    /* ── Lightbox ── */
+    (function lightbox() {
+      const lb = document.getElementById('lightbox');
+      const content = document.getElementById('lb-content');
+      const close = document.getElementById('lb-close');
+
+      document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('[data-lightbox]');
+        if (!trigger) return;
+        const src = trigger.dataset.src;
+        const label = trigger.dataset.label || '';
+        content.innerHTML = '';
+        if (src && /\.(png|jpe?g|webp|gif)$/i.test(src)) {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = label;
+          content.appendChild(img);
+          lb.classList.add('open');
+        }
+      });
+
+      const closeLb = () => lb.classList.remove('open');
+      close.addEventListener('click', (e) => { e.stopPropagation(); closeLb(); });
+      lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+    })();
+  </script>
+
+</body>
+</html>
