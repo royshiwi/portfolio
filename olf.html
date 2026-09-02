@@ -251,7 +251,6 @@
       position: relative; z-index: 2;
     }
     .sec-intro {
-      max-width: 840px;
       margin: 0 0 clamp(40px, 6vw, 72px) 0;
       font-family: var(--display);
       font-weight: 500;
@@ -283,6 +282,61 @@
     @media (max-width: 480px) {
       .dhero .meta-row { grid-template-columns: 1fr; }
       .sec-intro { font-size: clamp(16px, 4.5vw, 20px); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       GRAFFITI SECTION
+    ═══════════════════════════════════════════════════════════════════ */
+    .bg-cream-deep { background: oklch(0.91 0.028 85); }
+
+    .graffiti-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .graffiti-row .grf-img {
+      overflow: hidden;
+      border: var(--bw) solid var(--ink);
+      box-shadow: 6px 6px 0 0 var(--ink);
+      background: var(--c-mustard);
+      cursor: zoom-in;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .graffiti-row .grf-img:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 10px 10px 0 0 var(--ink);
+    }
+    .graffiti-row .grf-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    @media (max-width: 720px) {
+      .graffiti-row { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       PDF VIEWER
+    ═══════════════════════════════════════════════════════════════════ */
+    .pdf-viewer {
+      width: 100%;
+      border: var(--bw-thick) solid var(--ink);
+      box-shadow: var(--shadow-lg);
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--ink);
+    }
+    .pdf-viewer iframe {
+      display: block;
+      width: 100%;
+      height: 80vh;
+      min-height: 520px;
+      border: none;
+    }
+    .pdf-fallback {
+      display: none;
+      padding: 32px;
+      text-align: center;
+      background: var(--cream-2);
+    }
+    @media (max-width: 640px) {
+      .pdf-viewer iframe { height: 60vh; min-height: 360px; }
     }
 
     /* ═══════════════════════════════════════════════════════════════════
@@ -505,7 +559,7 @@
     <div class="dhero-inner">
       <span class="eyebrow">Work Experience · Chapter 01</span>
       <h1>
-        Communication and Content Associate 
+        Communication Associate 
         <span class="org-name">Open Links Foundation.</span>
       </h1>
       <div class="meta-row">
@@ -515,16 +569,13 @@
         </div>
         <div class="meta-card">
           <div class="label">Duration</div>
-          <div class="value">Mar 2026 — Present</div>
+          <div class="value">Mar 2026 — September 2026</div>
         </div>
         <div class="meta-card">
           <div class="label">Focus</div>
           <div class="value">Communication, Design &amp; Life Skills</div>
         </div>
-        <div class="meta-card">
-          <div class="label">Audience</div>
-          <div class="value">Students · Teachers · Stakeholders</div>
-        </div>
+
       </div>
     </div>
   </header>
@@ -532,8 +583,8 @@
   <!-- ═══ 01 — NANHE SITARE ═══ -->
   <section class="sec bg-cream">
     <div class="sec-head">
-      <span class="eyebrow">01 — Nanhe Sitare Event</span>
-      <h2>Classroom decor ideas<br />&amp; <em>posters.</em></h2>
+      <span class="eyebrow">01 — Event communication</span>
+      <h2>Nanhe Sitare Event<br><em>classroom decor posters.</em></h2>
     </div>
     <div class="sec-body">
       <p class="sec-intro">
@@ -548,8 +599,8 @@
   <!-- ═══ 02 — COLLATERAL ═══ -->
   <section class="sec bg-blue">
     <div class="sec-head">
-      <span class="eyebrow" style="background:var(--c-mustard); color:var(--ink);">02 — Collateral Design</span>
-      <h2>Event posters &amp;<br /><em>communication</em> materials.</h2>
+      
+      <h2>Promotional Materials</h2>
     </div>
     <div class="sec-body">
       <p class="sec-intro">
@@ -587,11 +638,62 @@
     </div>
   </section>
 
-  <!-- ═══ 03 — IMPACT VIDEO ═══ -->
+  <!-- ═══ 03 — GRAFFITI ═══ -->
+  <section class="sec bg-cream-deep">
+    <div class="sec-head">
+      <h2>Graffiti & Interactive Wall Installations.</h2>
+    </div>
+    <div class="sec-body">
+      <p class="sec-intro">
+        Designed graffiti and interactive wall installations for events to make sessions more engaging and participatory. These visual installations encouraged audience participation, feedback, and expression of perspectives through interactive activities and prompts, helping capture diverse voices and make events more interactive.
+      </p>
+      <div class="graffiti-row">
+        <div class="grf-img" data-lightbox data-src="Work/Open%20Links%20Foundation/Grafitti/1.jpeg" data-label="Graffiti Installation 1">
+          <img src="Work/Open%20Links%20Foundation/Grafitti/1.jpeg" alt="Graffiti installation 1" loading="lazy" />
+        </div>
+        <div class="grf-img" data-lightbox data-src="Work/Open%20Links%20Foundation/Grafitti/2.jpeg" data-label="Graffiti Installation 2">
+          <img src="Work/Open%20Links%20Foundation/Grafitti/2.jpeg" alt="Graffiti installation 2" loading="lazy" />
+        </div>
+        <div class="grf-img" data-lightbox data-src="Work/Open%20Links%20Foundation/Grafitti/3.jpeg" data-label="Graffiti Installation 3">
+          <img src="Work/Open%20Links%20Foundation/Grafitti/3.jpeg" alt="Graffiti installation 3" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 04 — KATHAVALI ═══ -->
+  <section class="sec bg-cream">
+    <div class="sec-head">
+      <span class="eyebrow">04 — Monthly Magazine</span>
+      <h2>Kathavali —<br /><em>Monthly Magazine.</em></h2>
+    </div>
+    <div class="sec-body">
+      <p class="sec-intro">
+        Kathavali is an 8-page monthly magazine circulated among Education Department government officials across the districts where Open Links Foundation operates. It showcases stories, field experiences, initiatives, and impactful practices from the education ecosystem. I managed its end-to-end production, from story sourcing, writing and editing to visual planning, graphic design, layout, and publication.
+      </p>
+      <div class="pdf-viewer">
+        <iframe
+          src="Work/Open%20Links%20Foundation/Kathavali/Kathavali-%20July%20Edition.pdf"
+          title="Kathavali — July Edition"
+          loading="lazy">
+        </iframe>
+      </div>
+      <div style="margin-top: 16px; display: flex; justify-content: flex-end;">
+        <a class="btn"
+           href="Work/Open%20Links%20Foundation/Kathavali/Kathavali-%20July%20Edition.pdf"
+           target="_blank" rel="noopener"
+           style="font-size: 13px; padding: 10px 20px; box-shadow: 5px 5px 0 0 var(--ink);">
+          Open PDF ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 05 — IMPACT VIDEO ═══ -->
   <section class="sec bg-mustard">
     <div class="sec-head">
-      <span class="eyebrow" style="background:var(--c-coral); color:var(--cream);">03 — Impact Video Creation</span>
-      <h2>Shikshan Utsav<br />— <em>Darpan.</em></h2>
+      <span class="eyebrow" style="background:var(--c-coral); color:var(--cream);">05 — Impact Video Creation</span>
+      <h2>Shikshan Utsav, Bastar.</h2>
     </div>
     <div class="sec-body">
       <p class="sec-intro">
@@ -607,11 +709,7 @@
           style="width:100%; height:100%; display:block;">
         </iframe>
       </div>
-      <div class="video-caption">
-        <div>Shikshan Utsav — Darpan Annual Event · Open Links Foundation · 2026</div>
-        <div class="duration">Impact Film</div>
-      </div>
-    </div>
+   </div>
   </section>
 
   <!-- ═══ NEXT CHAPTER ═══ -->
